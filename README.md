@@ -26,7 +26,7 @@ cd video-downloader
 ```
 
 ### 2. 📦 Set up the environment with uv
-This activates the 
+Create and activate a virtual environment for the project. Then install the package as a shell command.
 
 ```uv venv
 source .venv/bin/activate
@@ -35,8 +35,20 @@ uv pip install --uv-lock uv.lock
 pip install -e .
 ```
 
+### 3. 🚀 Usage
+```
+video-downloader path/to/urls.csv
+```
 
-### 3. 📦 Dependencies
+### Feature: 📁 Logs
+
+Each run creates a timestamped log file at:
+
+`~/Library/Logs/video-downloader/video_downloader_YYYY-MM-DD_HHMMSS.log`
+
+
+### Optional: 📦 Dependencies
+(This step is only required should you install additional software and need to update the repository.)
 
 Dependencies are listed in `pyproject.tom` and fully locked in `uv.lock`.
 
@@ -44,11 +56,6 @@ To update the lockfile after changing dependencies:
 
 ```
 uv pip compile pyproject.toml > uv.lock
-```
-
-### 4. 🚀 Usage
-```
-video-downloader path/to/urls.csv
 ```
 
 ### 🔐 Optional: Login-Protected Videos
@@ -59,8 +66,3 @@ If a video requires authentication, place your cookies export at:
 
 The tool will automatically retry failed downloads using this file when login is required.
 
-### 📁 Logs
-
-Each run creates a timestamped log file at:
-
-`~/Library/Logs/video-downloader/video_downloader_YYYY-MM-DD_HHMMSS.log`
