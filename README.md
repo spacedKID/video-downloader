@@ -31,7 +31,7 @@ Create and activate a virtual environment for the project. Then install the pack
 ```
 uv venv
 source .venv/bin/activate
-uv pip install pip  # ensures pip is available
+uv pip install pip
 uv pip install --uv-lock uv.lock
 pip install -e .
 ```
@@ -46,15 +46,6 @@ Each run creates a timestamped log file at:
 `~/Library/Logs/video-downloader/video_downloader_YYYY-MM-DD_HHMMSS.log`
 
 
-### Optional: 📦 Dependencies
-(This step is only required should you install additional software and need to update the repository.)
-
-Dependencies are listed in `pyproject.toml` and fully locked in `uv.lock`.
-
-To update the lockfile after changing dependencies:
-
-`uv pip compile pyproject.toml > uv.lock`
-
 ### 🔐 Optional: Login-Protected Videos
 
 If a video requires authentication, place your cookies export at:
@@ -65,3 +56,12 @@ The tool will automatically retry failed downloads using this file when login is
 
 Note: ive used a firefox add-on called [Cookies.txt](https://github.com/hrdl-github/cookies-txt) to obtain a copy of my browser cookies.
 
+
+### Optional: 📦 Dependencies
+(This step is only required should you install additional software and need to update the repository.)
+
+Dependencies are listed in `pyproject.toml` and fully locked in `uv.lock`.
+
+To update the lockfile after changing dependencies:
+
+`uv pip compile pyproject.toml > uv.lock`
