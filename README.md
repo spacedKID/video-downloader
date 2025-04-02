@@ -20,7 +20,7 @@ This project uses [`uv`](https://github.com/astral-sh/uv), a modern, Rust-based 
 
 ### 1. Clone the repo
 
-```bash
+```
 git clone https://github.com/spacedKID/video-downloader.git
 cd video-downloader
 ```
@@ -28,7 +28,8 @@ cd video-downloader
 ### 2. 📦 Set up the environment with uv
 Create and activate a virtual environment for the project. Then install the package as a shell command.
 
-```uv venv
+```
+uv venv
 source .venv/bin/activate
 uv pip install pip  # ensures pip is available
 uv pip install --uv-lock uv.lock
