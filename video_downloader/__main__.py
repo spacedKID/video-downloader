@@ -1,38 +1,63 @@
 import csv
 import sys
 import os
+import logging
+from datetime import datetime
 import yt_dlp
 from yt_dlp.utils import DownloadError
 
-def download_video(url, ydl_opts, fallback_opts):
+# --------- Setup Logging ---------
+def setup_logger():
+    log_dir = os.path.expanduser("~/Library/Logs/video-downloader")
+    os.makedirs(log_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    log_path = os.path.join(log_dir, f"video_downloader_{timestamp}.log")
+
+    logging.basicConfig(
+        filename=log_path,
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+    )
+    return log_path
+
+# --------- Video Download Function ---------
+def download_video(url, ydl_opts, fallback_opts, failed_urls):
+    logging.info(f"Starting download for URL: {url}")
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([url])
+            info = ydl.extract_info(url, download=True)
+            logging.info(f"✅ Download successful: {info.get('title', 'unknown title')}")
     except DownloadError as e:
-        print(f"\nDownload failed for {url}: {e}")
-        # Check for login requirement message
+        logging.warning(f"Download failed: {url} | Error: {e}")
         if 'login' in str(e).lower() or 'account' in str(e).lower():
-            print(f"Retrying {url} using cookies from ~/cookies.txt...")
+            logging.info(f"Retrying with cookies: {url}")
             cookies_path = os.path.expanduser("~/cookies.txt")
             if os.path.exists(cookies_path):
                 fallback_opts['cookiefile'] = cookies_path
                 try:
                     with yt_dlp.YoutubeDL(fallback_opts) as ydl:
-                        ydl.download([url])
+                        info = ydl.extract_info(url, download=True)
+                        logging.info(f"✅ Retry with cookies succeeded: {info.get('title', 'unknown title')}")
+                        return
                 except DownloadError as e2:
-                    print(f"Retry with cookies also failed: {e2}")
+                    logging.error(f"Retry failed: {url} | Error: {e2}")
             else:
-                print("No cookies file found at ~/cookies.txt.")
-        else:
-            print("Error not related to login — skipping.")
+                logging.warning(f"No cookies file found at {cookies_path}")
+        failed_urls.append(url)
 
+# --------- Batch Download Entry Point ---------
 def download_videos(csv_path):
+    failed_urls = []
+    log_path = setup_logger()
+    logging.info("🎬 Starting batch download session")
+
     try:
         with open(csv_path, newline='') as csvfile:
             reader = csv.reader(csvfile)
             urls = [row[0] for row in reader if row]
 
         if not urls:
+            logging.warning("No URLs found in CSV")
             print("No URLs found in the CSV file.")
             return
 
@@ -45,17 +70,32 @@ def download_videos(csv_path):
         fallback_opts = ydl_opts.copy()
 
         for url in urls:
-            print(f"\nDownloading: {url}")
-            download_video(url, ydl_opts, fallback_opts)
+            download_video(url, ydl_opts, fallback_opts, failed_urls)
+
+        # Summary
+        if failed_urls:
+            logging.warning("Some downloads failed:")
+            logging.warning("\n".join(failed_urls))
+            print("\n⚠️ The following downloads failed:")
+            for url in failed_urls:
+                print(f" - {url}")
+        else:
+            logging.info("🎉 All downloads completed successfully.")
+            print("\n✅ All downloads completed successfully.")
+
+        print(f"\nLog saved to: {os.path.abspath(log_path)}")
 
     except FileNotFoundError:
+        logging.critical(f"CSV file not found: {csv_path}")
         print(f"File not found: {csv_path}")
     except Exception as e:
-        print(f"An error occurred: {e}")
+        logging.critical(f"Critical error: {e}")
+        print(f"A critical error occurred: {e}")
 
+# --------- CLI Entry Point ---------
 def main():
     if len(sys.argv) != 2:
-        print("Usage: video-downloader path/to/file.csv")
+        print("Usage: video-downloader path/to/urls.csv")
         sys.exit(1)
 
     csv_path = sys.argv[1]
