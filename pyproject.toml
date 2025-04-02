@@ -8,4 +8,7 @@ dependencies = [
     "yt-dlp>=2025.2.19"
 ]
 
+[project.scripts]
+video-downloader = "video_downloader.__main__:main"
+
 [tool.uv]  # optional but supported if uv adds features later

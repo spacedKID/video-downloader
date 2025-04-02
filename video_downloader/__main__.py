@@ -6,7 +6,7 @@ def download_videos(csv_path):
     try:
         with open(csv_path, newline='') as csvfile:
             reader = csv.reader(csvfile)
-            urls = [row[0] for row in reader if row]  # Avoid empty rows
+            urls = [row[0] for row in reader if row]
 
         if not urls:
             print("No URLs found in the CSV file.")
@@ -28,15 +28,13 @@ def download_videos(csv_path):
     except Exception as e:
         print(f"An error occurred: {e}")
 
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python3 download_videos.py download_videos path/to/file.csv")
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python -m video_downloader path/to/file.csv")
         sys.exit(1)
 
-    func_name, csv_path = sys.argv[1], sys.argv[2]
-
-    if func_name != 'download_videos':
-        print(f"Function '{func_name}' not found.")
-        sys.exit(1)
-
+    csv_path = sys.argv[1]
     download_videos(csv_path)
+
+if __name__ == "__main__":
+    main()

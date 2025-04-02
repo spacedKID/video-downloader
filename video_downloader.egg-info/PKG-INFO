@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: video-downloader
+Version: 0.1.0
+Summary: Download highest quality videos from a list of URLs
+Author-email: Your Name <your@email.com>
+Requires-Python: >=3.10
+Requires-Dist: yt-dlp>=2025.2.19
