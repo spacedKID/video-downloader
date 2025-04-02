@@ -18,6 +18,7 @@ A Python-based command-line tool for downloading high-quality `.mp4` videos from
 
 This project uses [`uv`](https://github.com/astral-sh/uv), a modern, Rust-based Python package and environment manager.
 
+<ul>
 ### 1. Clone the repo
 
 ```
@@ -39,6 +40,10 @@ pip install -e .
 ### 3. 🚀 Usage
 `video-downloader path/to/urls.csv`
 
+</ul>
+
+---
+
 ### Feature: 📁 Logs
 <ul>
 Each run creates a timestamped log file at:
@@ -48,7 +53,7 @@ Each run creates a timestamped log file at:
 
 ---
 
-### 🔐 Optional: Login-Protected Videos
+### Feature: 🔐 Login-Protected Videos
 
 <ul>
 If a video requires authentication, place your cookies export at:
