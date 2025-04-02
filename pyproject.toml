@@ -2,7 +2,7 @@
 name = "video-downloader"
 version = "0.1.0"
 description = "Download highest quality videos from a list of URLs"
-authors = [{ name = "Your Name", email = "your@email.com" }]
+authors = [{ name = "adrian w", email = "ajwride@gmail.com" }]
 requires-python = ">=3.10"
 dependencies = [
     "yt-dlp>=2025.2.19"
