@@ -46,6 +46,8 @@ Each run creates a timestamped log file at:
 `~/Library/Logs/video-downloader/video_downloader_YYYY-MM-DD_HHMMSS.log`
 
 
+---
+
 ### 🔐 Optional: Login-Protected Videos
 
 If a video requires authentication, place your cookies export at:
