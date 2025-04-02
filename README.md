@@ -66,3 +66,5 @@ If a video requires authentication, place your cookies export at:
 
 The tool will automatically retry failed downloads using this file when login is required.
 
+Note: ive used a firefox add-on called [Cookies.txt](https://github.com/hrdl-github/cookies-txt) to obtain a copy of my browser cookies.
+
