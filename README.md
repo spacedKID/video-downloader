@@ -40,16 +40,17 @@ pip install -e .
 `video-downloader path/to/urls.csv`
 
 ### Feature: 📁 Logs
-
+<ul>
 Each run creates a timestamped log file at:
 
 `~/Library/Logs/video-downloader/video_downloader_YYYY-MM-DD_HHMMSS.log`
-
+</ul>
 
 ---
 
 ### 🔐 Optional: Login-Protected Videos
 
+<ul>
 If a video requires authentication, place your cookies export at:
 
 `~/cookies.txt`
@@ -57,9 +58,10 @@ If a video requires authentication, place your cookies export at:
 The tool will automatically retry failed downloads using this file when login is required.
 
 Note: ive used a firefox add-on called [Cookies.txt](https://github.com/hrdl-github/cookies-txt) to obtain a copy of my browser cookies.
-
+</ul>
 
 ### Optional: 📦 Dependencies
+<ul>
 (This step is only required should you install additional software and need to update the repository.)
 
 Dependencies are listed in `pyproject.toml` and fully locked in `uv.lock`.
@@ -67,3 +69,4 @@ Dependencies are listed in `pyproject.toml` and fully locked in `uv.lock`.
 To update the lockfile after changing dependencies:
 
 `uv pip compile pyproject.toml > uv.lock`
+</ul>
