@@ -26,10 +26,12 @@ cd video-downloader
 ```
 
 ### 2. 📦 Set up the environment with uv
+This activates the 
 
 ```uv venv
 source .venv/bin/activate
 uv pip install pip  # ensures pip is available
+uv pip install --uv-lock uv.lock
 pip install -e .
 ```
 
