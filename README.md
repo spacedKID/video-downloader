@@ -21,7 +21,7 @@ This project uses [`uv`](https://github.com/astral-sh/uv), a modern, Rust-based 
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/video-downloader.git
+git clone https://github.com/spacedKID/video-downloader.git
 cd video-downloader
 ```
 
