@@ -46,7 +46,7 @@ def download_video(url, ydl_opts, fallback_opts, failed_urls):
         failed_urls.append(url)
 
 # --------- Batch Download Entry Point ---------
-def download_videos(csv_path, download_path=None):
+def download_videos(csv_path, base_download_path=None):
     failed_urls = []
     log_path = setup_logger()
     logging.info("🎬 Starting batch download session")
@@ -61,21 +61,20 @@ def download_videos(csv_path, download_path=None):
             print("No URLs found in the CSV file.")
             return
 
-        # Set default download path if none provided
-        if not download_path:
-            download_path = os.path.expanduser("~/Desktop")
-        else:
-            download_path = os.path.expanduser(download_path)
+        # Set default download base path if none provided
+        base_download_path = os.path.expanduser(base_download_path or "~/Desktop")
 
-        if not os.path.isdir(download_path):
-            logging.error(f"Invalid download path: {download_path}")
-            print(f"❌ Invalid download path: {download_path}")
-            return
+        # Generate timestamped subfolder name
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M")
+        download_dir = os.path.join(base_download_path, f"{timestamp} video-downloads")
+        os.makedirs(download_dir, exist_ok=True)
+
+        logging.info(f"Download destination: {download_dir}")
 
         ydl_opts = {
             'format': 'bv*[vcodec^=avc1]+ba/best[ext=mp4]',
             'merge_output_format': 'mp4',
-            'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s'),
+            'outtmpl': os.path.join(download_dir, '%(title)s.%(ext)s'),
         }
 
         fallback_opts = ydl_opts.copy()
@@ -94,7 +93,8 @@ def download_videos(csv_path, download_path=None):
             logging.info("🎉 All downloads completed successfully.")
             print("\n✅ All downloads completed successfully.")
 
-        print(f"\nLog saved to: {os.path.abspath(log_path)}")
+        print(f"\nDownloaded videos are saved to: {os.path.abspath(download_dir)}")
+        print(f"Log saved to: {os.path.abspath(log_path)}")
 
     except FileNotFoundError:
         logging.critical(f"CSV file not found: {csv_path}")
