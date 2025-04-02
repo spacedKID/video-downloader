@@ -36,9 +36,7 @@ pip install -e .
 ```
 
 ### 3. 🚀 Usage
-```
-video-downloader path/to/urls.csv
-```
+`video-downloader path/to/urls.csv`
 
 ### Feature: 📁 Logs
 
@@ -54,9 +52,7 @@ Dependencies are listed in `pyproject.toml` and fully locked in `uv.lock`.
 
 To update the lockfile after changing dependencies:
 
-```
-uv pip compile pyproject.toml > uv.lock
-```
+`uv pip compile pyproject.toml > uv.lock`
 
 ### 🔐 Optional: Login-Protected Videos
 
