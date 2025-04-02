@@ -19,6 +19,7 @@ A Python-based command-line tool for downloading high-quality `.mp4` videos from
 This project uses [`uv`](https://github.com/astral-sh/uv), a modern, Rust-based Python package and environment manager.
 
 <ul>
+
 ### 1. Clone the repo
 
 ```
