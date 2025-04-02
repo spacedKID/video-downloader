@@ -71,14 +71,14 @@ Each run creates a timestamped log file in the user Library/Logs directory as:
 ### Feature: 🔐 Login-Protected Videos
 Some video files require authentication to a remote server for download. The [yt-dlp faq](https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp) provides context for this need.
 
-<ul>
-If a video requires authentication, place your cookies export at:
+Note: ive used a firefox add-on called [Cookies.txt](https://github.com/hrdl-github/cookies-txt) to obtain a copy of my browser cookies.
 
-`~/cookies.txt`
+
+<ul>
+If a video requires authentication, place your cookies export at: `~/cookies.txt`
 
 The tool will automatically retry failed downloads using this file when login is required.
 
-Note: ive used a firefox add-on called [Cookies.txt](https://github.com/hrdl-github/cookies-txt) to obtain a copy of my browser cookies.
 </ul>
 
 ---
