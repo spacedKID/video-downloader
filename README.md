@@ -50,7 +50,7 @@ Each run creates a timestamped log file at:
 ### Optional: 📦 Dependencies
 (This step is only required should you install additional software and need to update the repository.)
 
-Dependencies are listed in `pyproject.tom` and fully locked in `uv.lock`.
+Dependencies are listed in `pyproject.toml` and fully locked in `uv.lock`.
 
 To update the lockfile after changing dependencies:
 
