@@ -46,7 +46,7 @@ def download_video(url, ydl_opts, fallback_opts, failed_urls):
         failed_urls.append(url)
 
 # --------- Batch Download Entry Point ---------
-def download_videos(csv_path):
+def download_videos(csv_path, download_path=None):
     failed_urls = []
     log_path = setup_logger()
     logging.info("🎬 Starting batch download session")
@@ -61,10 +61,21 @@ def download_videos(csv_path):
             print("No URLs found in the CSV file.")
             return
 
+        # Set default download path if none provided
+        if not download_path:
+            download_path = os.path.expanduser("~/Desktop")
+        else:
+            download_path = os.path.expanduser(download_path)
+
+        if not os.path.isdir(download_path):
+            logging.error(f"Invalid download path: {download_path}")
+            print(f"❌ Invalid download path: {download_path}")
+            return
+
         ydl_opts = {
             'format': 'bv*[vcodec^=avc1]+ba/best[ext=mp4]',
             'merge_output_format': 'mp4',
-            'outtmpl': '%(title)s.%(ext)s',
+            'outtmpl': os.path.join(download_path, '%(title)s.%(ext)s'),
         }
 
         fallback_opts = ydl_opts.copy()
@@ -94,12 +105,16 @@ def download_videos(csv_path):
 
 # --------- CLI Entry Point ---------
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: video-downloader path/to/urls.csv")
+    args = sys.argv[1:]
+
+    if not (1 <= len(args) <= 2):
+        print("Usage: video-downloader path/to/urls.csv [optional-download-dir]")
         sys.exit(1)
 
-    csv_path = sys.argv[1]
-    download_videos(csv_path)
+    csv_path = args[0]
+    download_path = args[1] if len(args) == 2 else None
+
+    download_videos(csv_path, download_path)
 
 if __name__ == "__main__":
     main()
